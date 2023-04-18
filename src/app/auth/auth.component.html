@@ -1,0 +1,89 @@
+<div class="container" >
+    <div class="mb-4">
+        <button (click)="log()" class="btn btn-primary">{{'signin'  }}</button>
+        <button (click)="reg()" style="float: right;" class="btn btn-outline-primary">{{'register'  }}</button>
+    </div>
+    <div *ngIf="alreadyExists" class="alert alert-danger d-flex justify-content-center" role="alert">
+        <span style="font-weight: bold;">{{'alreadyExistent userName'}}</span>
+    </div>
+    <div *ngIf="em || userN || pass" class="alert alert-danger d-flex justify-content-center" role="alert">
+        <span style="font-weight: bold;">{{'invalid fields'}}</span>
+    </div>
+    <div *ngIf="inv" class="alert alert-danger d-flex justify-content-center" role="alert">
+        <span style="font-weight: bold;">{{'invalid login'}}</span>
+    </div>
+    <div class="border p-2" *ngIf="login">
+        <h5>Angular SignIn</h5>
+    </div>
+    <div class="border p-2" *ngIf="register">
+        <h5>Angular SignUp</h5>
+    </div>
+    <div *ngIf="login" class="login border border-rounded p-4 bg-white">
+        <div class="d-flex flex-column mb-2">
+            <label >
+                <span>{{'userName'  }}</span>
+            </label>
+            <input [ngClass]="userName.invalid ? 'red-border' : ''" class="form-control shadow-none" [formControl]="userName" type="text">
+            <span class="text-danger" *ngIf="userName.invalid">{{'email-invalid'  }}</span>
+        </div>
+
+        <div class="d-flex flex-column mb-2">
+            <label >
+                <span>{{'password'  }}</span>
+            </label>
+            <input minlength="8" [ngClass]="password1.invalid ? 'red-border' : ''" class="form-control shadow-none" [formControl]="password1" type="password">
+            <span class="text-danger"  *ngIf="password1.invalid">{{'password-invalid'  }}</span>
+
+        </div>
+        <span class="text-danger"  *ngIf="nonExistent">{{'nonExistent'  }}</span>
+        <div class="mt-4">
+            <button class="btn btn-primary" (click)="save()">{{'login'  }}</button>
+        </div>
+    </div>
+    <div *ngIf="register" class="register border-rounded p-4 bg-white" [formGroup]="form">
+        <div class="d-flex flex-row"  >
+
+            <div class="d-flex flex-column mb-2 w-100" style="margin-right: 20px;">
+                <label >
+                    <span>{{'name'  }}</span>
+                </label>
+                <input class="form-control" formControlName="name" type="text">
+            </div>
+            <div class="d-flex flex-column mb-2 w-100">
+                <label >
+                    <span>{{'lastname'  }}</span>
+                </label>
+                <input class="form-control" formControlName="lastName" type="text">
+            </div>
+        </div>
+        <div class="d-flex flex-column mb-2">
+            <label >
+                <span>{{'email'  }}</span>
+            </label>
+            <input   [ngClass]="em? 'red-border' : ''" class="form-control shadow-none" formControlName="email" type="email">
+            <span   class="text-danger" *ngIf="em">{{'email-invalid'  }}</span>
+        </div>
+        <div class="d-flex flex-column mb-2">
+            <label >
+                <span>{{'userName'  }}</span>
+            </label>
+            <input    [ngClass]="alreadyExists || userN? 'red-border' : ''" class="form-control shadow-none" formControlName="userName" type="text">
+            <span  class="text-danger"  *ngIf="alreadyExists">{{'already exists'  }}</span>
+            <span  class="text-danger"  *ngIf="userN">{{'invalid userName'  }}</span>
+
+        </div>
+        <div class="d-flex flex-column mb-2">
+            <label >
+                <span>{{'password'  }}</span>
+            </label>
+            <input minlength="8" [ngClass]="pass ? 'red-border' : ''" class="form-control shadow-none" formControlName="password" type="password">
+            <span class="text-danger"  *ngIf="pass">{{'password-invalid'  }}</span>
+        </div>
+        <div class="mt-4">
+            <button class="btn btn-primary" (click)="add()">{{'save'  }}</button>
+        </div>
+    </div>
+</div>
+<div *ngIf="succesMsg" class="alert alert-success d-flex justify-content-center" role="alert">
+    <span style="font-weight: bold;">{{'Success'  }}</span>
+</div>
